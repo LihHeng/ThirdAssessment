@@ -13,6 +13,9 @@
 		4E63EB5A2023F9BD007C0E1D /* ThirdAssessment_LihHeng.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E63EB582023F9BD007C0E1D /* ThirdAssessment_LihHeng.xcdatamodeld */; };
 		4E63EB5C2023F9BD007C0E1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E63EB5B2023F9BD007C0E1D /* Assets.xcassets */; };
 		4E63EB5F2023F9BD007C0E1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E63EB5D2023F9BD007C0E1D /* LaunchScreen.storyboard */; };
+		4E63EB692024017A007C0E1D /* PropertiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63EB682024017A007C0E1D /* PropertiesTableViewController.swift */; };
+		4E63EB6B202401DD007C0E1D /* OwnersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63EB6A202401DD007C0E1D /* OwnersTableViewController.swift */; };
+		4E63EB7020240F1B007C0E1D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63EB6F20240F1B007C0E1D /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		4E63EB5B2023F9BD007C0E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E63EB5E2023F9BD007C0E1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E63EB602023F9BD007C0E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E63EB682024017A007C0E1D /* PropertiesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesTableViewController.swift; sourceTree = "<group>"; };
+		4E63EB6A202401DD007C0E1D /* OwnersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnersTableViewController.swift; sourceTree = "<group>"; };
+		4E63EB6F20240F1B007C0E1D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,9 @@
 			isa = PBXGroup;
 			children = (
 				4E63EB512023F9BD007C0E1D /* AppDelegate.swift */,
+				4E63EB6F20240F1B007C0E1D /* DataController.swift */,
+				4E63EB6A202401DD007C0E1D /* OwnersTableViewController.swift */,
+				4E63EB682024017A007C0E1D /* PropertiesTableViewController.swift */,
 				4E63EB532023F9BD007C0E1D /* ViewController.swift */,
 				4E63EB552023F9BD007C0E1D /* Main.storyboard */,
 				4E63EB5B2023F9BD007C0E1D /* Assets.xcassets */,
@@ -140,7 +149,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E63EB542023F9BD007C0E1D /* ViewController.swift in Sources */,
+				4E63EB7020240F1B007C0E1D /* DataController.swift in Sources */,
 				4E63EB5A2023F9BD007C0E1D /* ThirdAssessment_LihHeng.xcdatamodeld in Sources */,
+				4E63EB692024017A007C0E1D /* PropertiesTableViewController.swift in Sources */,
+				4E63EB6B202401DD007C0E1D /* OwnersTableViewController.swift in Sources */,
 				4E63EB522023F9BD007C0E1D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

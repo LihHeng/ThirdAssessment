@@ -7,35 +7,75 @@
 //
 
 import UIKit
+import CoreData
 
 class OwnersTableViewController: UITableViewController {
+
+    var fetchResultController = NSFetchedResultsController<OwnerList>()
+    
+    let ownerMember : [String] = ["Han", "Erwin", "Mei", "Phillip", "Terrance", "Max", "KhangHui", "Marcus", "Melissa", "How", "Tung"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        loadMember()
+        fetchStudent()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    func loadMember() {
+        
+        for member in ownerMember {
+            guard let insertTeam = NSEntityDescription.insertNewObject(forEntityName: "OwnerList", into: DataController.moc) as? OwnerList else { return }
+            
+            insertTeam.name = member
+        }
+        DataController.saveContext()
+        tableView.reloadData()
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    func fetchStudent() {
+        let request = NSFetchRequest<OwnerList>(entityName: "OwnerList")
+        
+        let sortYear = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [sortYear]
+        
+        fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: DataController.moc, sectionNameKeyPath: nil, cacheName: nil)
+//        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            tableView.reloadData()
+        } catch {
+            print("Error Fetching Student Data")
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchResultController.fetchedObjects?.count ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ownerCell", for: indexPath)
+        let currentStudent = fetchResultController.object(at: indexPath)
+        cell.textLabel?.text = "\(currentStudent.name ?? "")"
+        
+        return cell
+
+    }
+
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,3 +133,14 @@ class OwnersTableViewController: UITableViewController {
     */
 
 }
+
+
+
+extension ViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    }
+}
+
+
+
