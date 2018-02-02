@@ -21,13 +21,25 @@ class OwnersTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        loadMember()
-        fetchStudent()
+        checkFirstLoad()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func checkFirstLoad() {
+        if UserDefaults.standard.bool(forKey: "isNotFirstRun") {
+            print("Teams were updated")
+            fetchOwner()
+        } else {
+            print("Loading for first load")
+            loadMember()
+            fetchOwner()
+            UserDefaults.standard.set(true, forKey: "isNotFirstRun")
+        }
     }
     
     func loadMember() {
@@ -41,11 +53,11 @@ class OwnersTableViewController: UITableViewController {
         tableView.reloadData()
 
     }
-    func fetchStudent() {
+    func fetchOwner() {
         let request = NSFetchRequest<OwnerList>(entityName: "OwnerList")
         
-        let sortYear = NSSortDescriptor(key: "name", ascending: true)
-        request.sortDescriptors = [sortYear]
+        let sortName = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [sortName]
         
         fetchResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: DataController.moc, sectionNameKeyPath: nil, cacheName: nil)
 //        fetchResultController.delegate = self
@@ -56,7 +68,6 @@ class OwnersTableViewController: UITableViewController {
         } catch {
             print("Error Fetching Student Data")
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,8 +80,19 @@ class OwnersTableViewController: UITableViewController {
         cell.textLabel?.text = "\(currentStudent.name ?? "")"
         
         return cell
-
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sb = UIStoryboard(name: "Main", bundle: Bundle.main)
+        if let vc = sb.instantiateViewController(withIdentifier: "PropertiesTableViewController") as? PropertiesTableViewController {
+            vc.selectedOwner = fetchResultController.object(at: indexPath)
+            
+            if tableView.allowsMultipleSelectionDuringEditing == false {
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+
 
 
     // MARK: - Table view data source
@@ -133,14 +155,5 @@ class OwnersTableViewController: UITableViewController {
     */
 
 }
-
-
-
-extension ViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
-}
-
 
 
